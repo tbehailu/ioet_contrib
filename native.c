@@ -24,6 +24,7 @@
 #include "lrodefs.h"
 
 //Include some libs as C files into this file
+#include "natlib/util.c"
 
 ////////////////// BEGIN FUNCTIONS /////////////////////////////
 
