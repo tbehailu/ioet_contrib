@@ -18,9 +18,9 @@ print("packed:", p)
 
 -- unpack a serialized target
 up = storm.mp.unpack(p)
-print("should be abc", t.a)
-print("should be 123", t.b)
-print("should be {1,2,3}", t.c)
-for idx,val in ipairs(t.c) do print("index",idx,"value",val) end
+print("should be abc", up.a)
+print("should be 123", up.b)
+print("should be {1,2,3}", up.c)
+for idx,val in ipairs(up.c) do print("index",idx,"value",val) end
 print("should be table", t.d)
-for key,val in pairs(t.d) do print("key",key,"value",val) end
+for key,val in pairs(up.d) do print("key",key,"value",val) end
