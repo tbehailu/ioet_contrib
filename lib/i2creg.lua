@@ -16,6 +16,17 @@ function REG:r(reg)
     -- write address
     -- read register with RSTART
     -- check all return values
+    local arr = storm.array.create(1, storm.array.UINT8)
+    arr:set(1, reg)
+    local rv = cord.await(storm.i2c.write, self.port + self.address, storm.i2c.START, arr)
+    if (rv ~= storm.i2c.OK) then
+        print ("ERROR ON I2C: ",rv)
+    end
+    rv = cord.await(storm.i2c.read, self.port + self.address, storm.i2c.RSTART + storm.i2c.STOP, arr)
+    if (rv ~= storm.i2c.OK) then
+        print ("ERROR ON I2C: ",rv)
+    end
+    return arr:get(1)
 end
 
 function REG:w(reg, value)
@@ -23,6 +34,13 @@ function REG:w(reg, value)
     -- create array with address and value
     -- write
     -- check return value
+    local arr = storm.array.create(2, storm.array.UINT8)
+    arr:set(1, reg)
+    arr:set(2, value)
+    local rv = cord.await(storm.i2c.write, self.port + self.address, storm.i2c.START + storm.i2c.STOP, arr)
+    if (rv ~= storm.i2c.OK) then
+        print ("ERROR ON I2C: ",rv)
+    end
 end
 
 return REG
